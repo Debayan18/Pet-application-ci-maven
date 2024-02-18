@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    stages {
+        stage('Connecting GIT & JAVA Version') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Debayan18/Pet-application-ci-maven.git'
+                sh 'java --version'
+            }
+        }
+  
+        stage('Building Project') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Debayan18/Pet-application-ci-maven.git'
+                sh 'mvn clean package'
+            }
+        }
+        
+        stage('Runnig Application') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Debayan18/Pet-application-ci-maven.git'
+                sh 'cd /var/lib/jenkins/workspace/SpringJob/target'
+// 'SpringJob' is the Job Name in Jenkins inside which the 'target' folder gets created, which contains the .jar file
+                sh 'java -jar spring-petclinic-2.3.1.BUILD-SNAPSHOT.jar --server.port=8888'
+            }
+        }
+    }
+}
