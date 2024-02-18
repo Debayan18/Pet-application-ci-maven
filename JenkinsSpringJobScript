@@ -11,16 +11,15 @@ pipeline {
         stage('Building Project') {
             steps {
                 git branch: 'main', url: 'https://github.com/Debayan18/Pet-application-ci-maven.git'
-                sh 'mvn clean package'
+                sh 'mvn package'
             }
         }
         
-        stage('Runnig Application') {
+        stage('Running Application') {
             steps {
                 git branch: 'main', url: 'https://github.com/Debayan18/Pet-application-ci-maven.git'
-                sh 'cd /var/lib/jenkins/workspace/SpringJob/target'
+                sh 'java -jar /var/lib/jenkins/workspace/SpringJob/target/*.jar --server.port=8888'
 // 'SpringJob' is the Job Name in Jenkins inside which the 'target' folder gets created, which contains the .jar file
-                sh 'java -jar spring-petclinic-2.3.1.BUILD-SNAPSHOT.jar --server.port=8888'
             }
         }
     }
